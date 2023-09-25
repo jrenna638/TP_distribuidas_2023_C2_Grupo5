@@ -1043,7 +1043,7 @@
         }
       }
     },
-    "/properties/{id}": {
+    "/properties/{property_id}": {
       "get": {
         "tags": [
           "properties"
@@ -1052,7 +1052,7 @@
         "description": "Obtener datos de una propiedad.",
         "parameters": [
           {
-            "name": "id",
+            "name": "property_id",
             "in": "path",
             "description": "ID de la propiedad.",
             "schema": {
@@ -1193,7 +1193,7 @@
         "description": "Actualiza los detalles de una propiedad existente.",
         "parameters": [
           {
-            "name": "id",
+            "name": "property_id",
             "in": "path",
             "description": "ID de la propiedad.",
             "schema": {
@@ -1488,7 +1488,7 @@
         "description": "Elimina una propiedad existente por su ID.",
         "parameters": [
           {
-            "name": "id",
+            "name": "property_id",
             "in": "path",
             "description": "ID de la propiedad que se va a eliminar.",
             "required": true,
@@ -1503,6 +1503,46 @@
           },
           "404": {
             "description": "Propiedad no encontrada"
+          }
+        }
+      }
+    },
+    "/properties/{property_id}/images/{image_id}": {
+      "get": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Ver imagen de propiedad",
+        "description": "Obtiene la imagen de una propiedad específica.",
+        "parameters": [
+          {
+            "name": "property_id",
+            "in": "path",
+            "description": "ID de la propiedad.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "ID de la imagen.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imagen encontrada",
+            "content": {
+              "image/jpeg": {}
+            }
+          },
+          "404": {
+            "description": "Imagen no encontrada"
           }
         }
       }
@@ -1965,7 +2005,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Reserva realizado correctamente."
+            "description": "Reserva realizada correctamente."
           },
           "400": {
             "description": "Datos incorrectos o faltantes."
@@ -2043,7 +2083,7 @@
             }
           },
           "404": {
-            "description": "No existen un reservas con ese Id de Inmobiliaria."
+            "description": "No existen reservas con ese Id de Inmobiliaria."
           }
         }
       }
