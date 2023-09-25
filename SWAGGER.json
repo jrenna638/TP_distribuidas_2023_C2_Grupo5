@@ -1,0 +1,2052 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger MyHome - OpenAPI 3.0",
+    "description": "",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "https://myhome.swagger.io/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth"
+    },
+    {
+      "name": "users"
+    },
+    {
+      "name": "properties"
+    },
+    {
+      "name": "comments"
+    },
+    {
+      "name": "favorites"
+    },
+    {
+      "name": "contacts"
+    },
+    {
+      "name": "bookings"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Iniciar sesión",
+        "description": "Inicia sesión en la aplicación.",
+        "parameters": [
+          {
+            "name": "email",
+            "description": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "password",
+            "description": "Password",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Credenciales incorrectas"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Crear nuevo usuario.",
+        "description": "Crear nuevo usuario.",
+        "parameters": [
+          {
+            "name": "userName",
+            "description": "User Name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "email",
+            "description": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "visible email",
+            "description": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "password",
+            "description": "Password",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "confirm password",
+            "description": "Confirm Password",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "photo",
+            "description": "Imagen de perfil",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario creado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "photoUrl": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos incorrectos o email se encuentra en uso."
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Log out",
+        "description": "Log out",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Obtener datos de un usuario.",
+        "description": "Obtener datos de un usuario.",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "User ID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos encontrados exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "photoUrl": {
+                          "type": "string"
+                        },
+                        "direccion": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No existe un usuario con ese ID."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Actualizar datos de un usuario.",
+        "description": "Actualizar datos de un usuario.",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "User ID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "userName",
+            "description": "User Name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": false
+          },
+          {
+            "name": "email",
+            "description": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": false
+          },
+          {
+            "name": "visible email",
+            "description": "Email visible",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": false
+          },
+          {
+            "name": "password",
+            "description": "Password",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": false
+          },
+          {
+            "name": "direccion",
+            "description": "Direccion de residencia del usuario",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": false
+          },
+          {
+            "name": "photo",
+            "description": "Imagen de perfil",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "photoUrl": {
+                          "type": "string"
+                        },
+                        "direccion": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos."
+          },
+          "401": {
+            "description": "Usuario no logueado."
+          },
+          "404": {
+            "description": "No existe un usuario con ese ID."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Eliminar usuario.",
+        "description": "Eliminar cuenta de un usuario.",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "User ID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cuenta eliminada exitosamente."
+          },
+          "401": {
+            "description": "Usuario no logueado."
+          },
+          "404": {
+            "description": "No existe un usuario con ese ID."
+          }
+        }
+      }
+    },
+    "/users/{id}/updatePassword": {
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Actualizar contraseña de un usuario.",
+        "description": "Actualiza contraseña de un usuario.",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "User ID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "password",
+            "description": "New password",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contraseña actualizada exitosamente."
+          },
+          "400": {
+            "description": "Contraseña inválida."
+          },
+          "404": {
+            "description": "No existe un usuario con ese ID."
+          }
+        }
+      }
+    },
+    "/properties": {
+      "post": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Crear propiedad.",
+        "description": "Crear propiedad.",
+        "parameters": [
+          {
+            "name": "calle",
+            "description": "Calle",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "numero",
+            "description": "numero",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "piso",
+            "description": "psio",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "departamento",
+            "description": "departamento",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "barrio",
+            "description": "barrio",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "localidad",
+            "description": "localidad",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "provincia",
+            "description": "provincia",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "pais",
+            "description": "pais",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "geolocalizacion",
+            "description": "Coordenadas geográficas de la propiedad (latitud y longitud).",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "tipo propiedad",
+            "description": "Tipos de propiedad",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "metros cuadrados cubiertos",
+            "description": "metros cuadrados cubiertos",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "metros cuadrados semidescubiertos",
+            "description": "metros cuadrados semidescubiertos",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "metros cuadrados descubiertos",
+            "description": "metros cuadrados descubiertos",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "cant ambientes",
+            "description": "cant ambientes",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "cant departamentos",
+            "description": "cant departamentos",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "cant baños",
+            "description": "cant baños",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "caracteristicas",
+            "description": "Características",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "antiguedad",
+            "description": "Antiguedad",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "amenities",
+            "description": "Amenities",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "photos",
+            "description": "Subir fotos",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            },
+            "required": false
+          },
+          {
+            "name": "videos",
+            "description": "Subir videos",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            },
+            "required": false
+          },
+          {
+            "name": "precio",
+            "description": "Precio alquiler o venta",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "Moneda",
+            "description": "Moneda (USD/ARS)",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "expensas",
+            "description": "Expensas",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "estado",
+            "description": "Estado",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Solicitud exitosa.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Ver propiedades.",
+        "description": "Permite a una inmobiliaria ver sus propiedades.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID de la propiedad.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "venta_alquiler",
+            "in": "query",
+            "description": "Tipo de transacción (venta o alquiler).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tipo_propiedad",
+            "in": "query",
+            "description": "Tipo de propiedad.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "name": "provincia",
+            "in": "query",
+            "description": "Provincia de la propiedad.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "barrio",
+            "in": "query",
+            "description": "Barrio de la propiedad.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "localidad",
+            "in": "query",
+            "description": "Localidad de la propiedad.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "moneda",
+            "in": "query",
+            "description": "Moneda de la propiedad.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "precio_min",
+            "in": "query",
+            "description": "Precio mínimo de la propiedad.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "precio_max",
+            "in": "query",
+            "description": "Precio máximo de la propiedad.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cant ambientes",
+            "in": "query",
+            "description": "Cantidad de ambientes.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cant dormitorios",
+            "in": "query",
+            "description": "Cantidad de dormitorios.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cant baños",
+            "in": "query",
+            "description": "Cantidad de baños.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "antiguedad",
+            "in": "query",
+            "description": "Antigüedad de la propiedad (en años).",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "amenities",
+            "in": "query",
+            "description": "Ambientes disponibles en la propiedad.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "name": "inmobiliaria",
+            "in": "query",
+            "description": "Nombre de la inmobiliaria.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "geolocalizacion",
+            "in": "query",
+            "description": "Coordenadas geográficas de la propiedad (latitud y longitud).",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Solicitud exitosa.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "property": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "direccion": {
+                          "type": "object",
+                          "properties": {
+                            "calle": {
+                              "type": "string"
+                            },
+                            "numero": {
+                              "type": "integer"
+                            },
+                            "piso": {
+                              "type": "integer"
+                            },
+                            "departamento": {
+                              "type": "string"
+                            },
+                            "barrio": {
+                              "type": "string"
+                            },
+                            "localidad": {
+                              "type": "string"
+                            },
+                            "provincia": {
+                              "type": "string"
+                            },
+                            "pais": {
+                              "type": "string"
+                            },
+                            "geolocalizacion": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "tipo": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "metrosCuadradosCubiertos": {
+                          "type": "integer"
+                        },
+                        "metrosCuadradosSemidescubiertos": {
+                          "type": "integer"
+                        },
+                        "metrosCuadradosDescubiertos": {
+                          "type": "integer"
+                        },
+                        "cantAmbientes": {
+                          "type": "integer"
+                        },
+                        "cantDormitorios": {
+                          "type": "integer"
+                        },
+                        "cantBaños": {
+                          "type": "integer"
+                        },
+                        "caracteristicas": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "antiguedad": {
+                          "type": "integer"
+                        },
+                        "amenities": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "fotos": {
+                          "type": "string"
+                        },
+                        "videos": {
+                          "type": "string"
+                        },
+                        "precio": {
+                          "type": "integer"
+                        },
+                        "moneda": {
+                          "type": "string"
+                        },
+                        "expensas": {
+                          "type": "string"
+                        },
+                        "estado": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta."
+          },
+          "404": {
+            "description": "Propiedades no encontradas."
+          }
+        }
+      }
+    },
+    "/properties/{id}": {
+      "get": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Obtener datos de una propiedad.",
+        "description": "Obtener datos de una propiedad.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la propiedad.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Propiedad encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "property": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "direccion": {
+                          "type": "object",
+                          "properties": {
+                            "calle": {
+                              "type": "string"
+                            },
+                            "numero": {
+                              "type": "integer"
+                            },
+                            "piso": {
+                              "type": "integer"
+                            },
+                            "departamento": {
+                              "type": "string"
+                            },
+                            "barrio": {
+                              "type": "string"
+                            },
+                            "localidad": {
+                              "type": "string"
+                            },
+                            "provincia": {
+                              "type": "string"
+                            },
+                            "pais": {
+                              "type": "string"
+                            },
+                            "geolocalizacion": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "tipo": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "metrosCuadradosCubiertos": {
+                          "type": "integer"
+                        },
+                        "metrosCuadradosSemidescubiertos": {
+                          "type": "integer"
+                        },
+                        "metrosCuadradosDescubiertos": {
+                          "type": "integer"
+                        },
+                        "cantAmbientes": {
+                          "type": "integer"
+                        },
+                        "cantDormitorios": {
+                          "type": "integer"
+                        },
+                        "cantBaños": {
+                          "type": "integer"
+                        },
+                        "caracteristicas": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "antiguedad": {
+                          "type": "integer"
+                        },
+                        "amenities": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "fotos": {
+                          "type": "string"
+                        },
+                        "videos": {
+                          "type": "string"
+                        },
+                        "precio": {
+                          "type": "integer"
+                        },
+                        "moneda": {
+                          "type": "string"
+                        },
+                        "expensas": {
+                          "type": "string"
+                        },
+                        "estado": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta"
+          },
+          "404": {
+            "description": "Propiedad no encontrada"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Editar propiedad",
+        "description": "Actualiza los detalles de una propiedad existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la propiedad.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "calle",
+            "description": "Calle",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "numero",
+            "description": "numero",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "piso",
+            "description": "psio",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "departamento",
+            "description": "departamento",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "barrio",
+            "description": "Barrio",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "localidad",
+            "description": "Localidad",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "provincia",
+            "description": "provincia",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "pais",
+            "description": "pais",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "geolocalizacion",
+            "description": "Coordenadas geográficas de la propiedad (latitud y longitud).",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "tipo propiedad",
+            "description": "Tipos de propiedad",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "metros cuadrados cubiertos",
+            "description": "metros cuadrados cubiertos",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "metros cuadrados semidescubiertos",
+            "description": "metros cuadrados semidescubiertos",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "metros cuadrados descubiertos",
+            "description": "metros cuadrados descubiertos",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "cant ambientes",
+            "description": "cant ambientes",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "cant dormitorios",
+            "description": "cant dormitorios",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "cant baños",
+            "description": "cant baños",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "caracteristicas",
+            "description": "Características",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "antiguedad",
+            "description": "Antiguedad",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "amenities",
+            "description": "Amenities",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "photos",
+            "description": "Subir fotos",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            },
+            "required": false
+          },
+          {
+            "name": "videos",
+            "description": "Subir videos",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            },
+            "required": false
+          },
+          {
+            "name": "precio",
+            "description": "Precio alquiler o venta",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "Moneda",
+            "description": "Moneda (USD/ARS)",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "expensas",
+            "description": "Expensas",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            },
+            "required": true
+          },
+          {
+            "name": "estado",
+            "description": "Estado",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "required": true,
+            "style": "form",
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Propiedad actualizada con éxito"
+          },
+          "400": {
+            "description": "Solicitud incorrecta"
+          },
+          "404": {
+            "description": "Propiedad no encontrada"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Eliminar Propiedad",
+        "description": "Elimina una propiedad existente por su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la propiedad que se va a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Propiedad eliminada con éxito"
+          },
+          "404": {
+            "description": "Propiedad no encontrada"
+          }
+        }
+      }
+    },
+    "/comments": {
+      "post": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Crear Comentario",
+        "description": "Crea un nuevo comentario relacionado con una propiedad o inmobiliaria.",
+        "parameters": [
+          {
+            "name": "idInmobiliaria",
+            "in": "query",
+            "description": "ID de la inmobiliaria.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "calificacion",
+            "in": "query",
+            "description": "calificacion sobre la inmobiliaria.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "comentario",
+            "in": "query",
+            "description": "Comentario sobre la inmobiliaria.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "formData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentario publicado exitosamente."
+          },
+          "400": {
+            "description": "Solicitud incorrecta."
+          }
+        }
+      }
+    },
+    "/comments/{idInmobiliaria}": {
+      "get": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Obtener Comentarios",
+        "description": "Obtiene comentarios.",
+        "parameters": [
+          {
+            "name": "idInmobiliaria",
+            "in": "path",
+            "description": "ID de la inmobiliaria a la que se refiere el comentario.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentarios encontrados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "comment": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "idInmobiliaria": {
+                          "type": "string"
+                        },
+                        "calificacion": {
+                          "type": "integer"
+                        },
+                        "comementario": {
+                          "type": "string"
+                        },
+                        "idUsuario": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta."
+          },
+          "404": {
+            "description": "Comentarios no encontrados."
+          }
+        }
+      }
+    },
+    "/comments/{id}": {
+      "delete": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Eliminar Comentario",
+        "description": "Elimina un comentario existente por su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del comentario que se va a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Comentario eliminado con éxito."
+          },
+          "404": {
+            "description": "Comentario no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "No se encontró el comentario con el ID especificado."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorites": {
+      "post": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Agregar Propiedad a Favoritas",
+        "description": "Agrega una propiedad a la lista de propiedades favoritas del usuario.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idPropiedad": {
+                    "type": "string",
+                    "description": "ID de la propiedad que se va a agregar a favorita."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Propiedad agregada a favoritas con éxito."
+          },
+          "401": {
+            "description": "No autorizado."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Obtener Propiedades Favoritas",
+        "description": "Obtiene la lista de propiedades que el usuario ha guardado como favoritas.",
+        "responses": {
+          "200": {
+            "description": "Propiedades favoritas encontradas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "property": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "direccion": {
+                          "type": "object",
+                          "properties": {
+                            "calle": {
+                              "type": "string"
+                            },
+                            "numero": {
+                              "type": "integer"
+                            },
+                            "piso": {
+                              "type": "integer"
+                            },
+                            "departamento": {
+                              "type": "string"
+                            },
+                            "barrio": {
+                              "type": "string"
+                            },
+                            "localidad": {
+                              "type": "string"
+                            },
+                            "provincia": {
+                              "type": "string"
+                            },
+                            "pais": {
+                              "type": "string"
+                            },
+                            "geolocalizacion": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "tipo": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "metrosCuadradosCubiertos": {
+                          "type": "integer"
+                        },
+                        "metrosCuadradosSemidescubiertos": {
+                          "type": "integer"
+                        },
+                        "metrosCuadradosDescubiertos": {
+                          "type": "integer"
+                        },
+                        "cantAmbientes": {
+                          "type": "integer"
+                        },
+                        "cantDormitorios": {
+                          "type": "integer"
+                        },
+                        "cantBaños": {
+                          "type": "integer"
+                        },
+                        "caracteristicas": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "antiguedad": {
+                          "type": "integer"
+                        },
+                        "amenities": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        },
+                        "fotos": {
+                          "type": "string"
+                        },
+                        "videos": {
+                          "type": "string"
+                        },
+                        "precio": {
+                          "type": "integer"
+                        },
+                        "moneda": {
+                          "type": "string"
+                        },
+                        "expensas": {
+                          "type": "string"
+                        },
+                        "estado": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "post": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Crear contacto con la Inmobiliaria",
+        "description": "Genera un contacto con la Inmobiliaria.",
+        "parameters": [
+          {
+            "name": "idPropiedad",
+            "in": "query",
+            "description": "ID de la propiedad por la cual se contacta.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mensaje",
+            "in": "query",
+            "description": "Mensaje informativo que se desee escribir.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "turno",
+            "in": "query",
+            "description": "Turno en el cual se desea visitar la propiedad.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fecha",
+            "in": "query",
+            "description": "Dia en el cual se desea visitar la propiedad.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contacto creado."
+          },
+          "400": {
+            "description": "Datos incorrectos."
+          }
+        }
+      }
+    },
+    "/bookings": {
+      "post": {
+        "tags": [
+          "bookings"
+        ],
+        "summary": "Crear reserva de la Propiedad",
+        "description": "Genera una reserva de la Propiedad.",
+        "parameters": [
+          {
+            "name": "idPropiedad",
+            "in": "query",
+            "description": "ID de la propiedad que se desea reservar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "moneda",
+            "in": "query",
+            "description": "Moneda en la que se abonara.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "monto",
+            "in": "query",
+            "description": "Monto que se abonara.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "numeroTarjeta",
+            "in": "query",
+            "description": "Numero de la tarjeta utilizada para pagar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mesTarjeta",
+            "in": "query",
+            "description": "Mes de vencimiento de la tarjeta utilizada.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "añoTarjeta",
+            "in": "query",
+            "description": "Año de vencimiento de la tarjeta utilizada.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nombreApellido",
+            "in": "query",
+            "description": "Nombre del titular presente en la tarjeta.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dni",
+            "in": "query",
+            "description": "DNI del titular presente en la tarjeta.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "direccion",
+            "in": "query",
+            "description": "Direccion utilizada para la facturacion.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reserva realizado correctamente."
+          },
+          "400": {
+            "description": "Datos incorrectos o faltantes."
+          }
+        }
+      }
+    },
+    "/bookings/{idInmobiliaria}": {
+      "get": {
+        "tags": [
+          "bookings"
+        ],
+        "summary": "Obtener reservas de propiedades de una inmobiliaria.",
+        "description": "Obtener reservas de propiedades de una inmobiliaria.",
+        "parameters": [
+          {
+            "name": "idInmobiliaria",
+            "description": "Id de la Inmobiliaria a la que pertenecen las propiedades.",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos encontrados exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "booking": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "idPropiedad": {
+                          "type": "string"
+                        },
+                        "moneda": {
+                          "type": "string"
+                        },
+                        "monto": {
+                          "type": "string"
+                        },
+                        "numeroTarjeta": {
+                          "type": "string"
+                        },
+                        "mesTarjeta": {
+                          "type": "string"
+                        },
+                        "añoTarjeta": {
+                          "type": "string"
+                        },
+                        "nombreApellido": {
+                          "type": "string"
+                        },
+                        "dni": {
+                          "type": "string"
+                        },
+                        "direccion": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No existen un reservas con ese Id de Inmobiliaria."
+          }
+        }
+      }
+    }
+  }
+}
